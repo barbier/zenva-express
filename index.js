@@ -1,33 +1,22 @@
 const express = require('express')
+const routes = require('./routes/index')
+const path = require('path')
+const bodyParser = require('body-parser')
 
 const app = express()
 
-app.get('/', (req, res, next) => {
-    res.send('This is the response!')
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({extended: false}))
+
+app.use((req, res, next) => {
+    console.log('Middleware')
+    req.timestamp = new Date().toString()
+    next()
 })
 
-app.get('/json', (req, res, next) => {
-    const data = {
-        name: 'Gabriel',
-        location: 'Rio',
-    }
-    res.json(data)
-})
-
-app.get('/html', (req, res, next) => {
-    const html = '<html><h1 style="color:red">This is an HTML response</h1></html>'
-    res.send(html)
-})
-
-app.get('/query', (req, res, next) => {
-    const query = req.query
-    res.json(query)
-})
-
-app.get('/params/:name/:location/:occupation', (req, res, next) => {
-    const params = req.params
-    res.json(params)
-})
+app.use('/', routes)
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hjs')
 
 app.listen(3000)
 console.log('Server running on localhost:3000')

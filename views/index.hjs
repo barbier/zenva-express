@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Express</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the {{name}} Page, {{user}}</h1>
+        <ol>
+            {{#profiles}}
+                <li>{{date}} - {{name}}, {{city}}
+                    {{#profession}}
+                        , profession: {{profession}}
+                    {{/profession}}
+                </li>
+            {{/profiles}}
+        </ol>
+        <form method="POST" action="/join">
+            <input type="text" name="name" placeholder="Type your name"><br>
+            <input type="text" name="city" placeholder="Type your city"><br>
+            <input type="text" name="profession" placeholder="Type your profession"><br>
+            <input type="submit" value="Add Profile">
+        </form>
+    </div>
+</body>
+</html>
